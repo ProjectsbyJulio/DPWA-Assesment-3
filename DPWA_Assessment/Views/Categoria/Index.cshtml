@@ -1,32 +1,36 @@
 ﻿@model List<DPWA_Assessment.Models.ViewModel.CategoriaViewModel>
 @{
-    ViewBag.Title = "Categorías";
+    ViewBag.Title = "Categorías Registradas";
 }
+<div class="d-flex justify-content-center align-items-center vh-100 container-fluid">
+    <div>
+        <h2 class="text-center text-dark mb-5 display-2">@ViewBag.Title</h2>
 
-<h2 class="text-center text-dark">@ViewBag.Title</h2>
-
-<section>
-    <div class="row">
-        <div class="col shadow">
-            <table class="table table-hover table-sm">
-                <thead class="table-light">
-                    <tr>
-                        <th>Id Categoría</th>
-                        <th>Nombre</th>
-                        <th>Imagen</th>
-                    </tr>
-                </thead>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.Categoria</td>
-                        <td>
-                            <img src=@item.imagenCat class="img-fluid img-thumbnail" />
-                        </td>
-                    </tr>
-                }
-            </table>
+        <div class="text-end">
+            <a href="~/Categoria/InsertarCategoria" class="btn shadow btn-sm btn-warning mb-1">Insertar Categoría</a>
+        </div>
+        <div class="row">
+            <div class="col-8 col-sm shadow overflow-auto p-1">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Id Categoría</th>
+                            <th>Nombre Categoría</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Categoria</td>
+                            <td>
+                                <img src=@item.imagenCat class="img-fluid img-thumbnail" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
     </div>
-</section>
+</div>
