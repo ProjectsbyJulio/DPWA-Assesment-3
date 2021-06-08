@@ -22,7 +22,7 @@ namespace DPWA_Assessment.Controllers
                                    {
                                        Id = data.idcategoria,
                                        Categoria = data.categoria1,
-                                       imagenCat = data.imagenCat
+                                       ImagenCat = data.imagenCat
                                    }
                                    ).ToList();
             }
@@ -46,9 +46,9 @@ namespace DPWA_Assessment.Controllers
                         
                         var data = new categoria();
                         data.categoria1 = model.Categoria;
-                        model.imagenCat = Path.GetFileName(model.ImagePath.FileName);
-                        data.imagenCat = $"/Assets/Images/{model.imagenCat}";
-                        string path = Path.Combine(Server.MapPath("~/Assets/Images/"), Path.GetFileName(model.imagenCat));
+                        model.ImagenCat = Path.GetFileName(model.ImagePath.FileName);
+                        data.imagenCat = $"/Assets/Images/{model.ImagenCat}";
+                        string path = Path.Combine(Server.MapPath("~/Assets/Images/"), Path.GetFileName(model.ImagenCat));
                         model.ImagePath.SaveAs(path);
                         db.categorias.Add(data);
                         db.SaveChanges();

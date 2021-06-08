@@ -13,7 +13,7 @@ namespace DPWA_Assessment.Models.ViewModel
         [StringLength(50)]
         [Display(Name = "Nombre")]
         public string Categoria { get; set; }
-        public string imagenCat { get; set; }
+        public string ImagenCat { get; set; }
         public HttpPostedFileBase ImagePath { get; set; }
     }
 }
