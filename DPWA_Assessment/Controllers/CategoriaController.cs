@@ -35,28 +35,28 @@ namespace DPWA_Assessment.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult InsertarCategoria(CategoriaViewModel model, HttpPostedFileBase file)
+        public ActionResult InsertarCategoria(CategoriaViewModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if(file != null)
-                    {
-                        string path = Path.Combine(Server.MapPath("~/Assets/Images"), Path.GetFileName(file.FileName));
-                        file.SaveAs(path);
-                    }
                     using (juegoJECSEntities db = new juegoJECSEntities())
                     {
+                        
                         var data = new categoria();
                         data.categoria1 = model.Categoria;
-                        data.imagenCat = model.imagenCat;
-
+                        model.imagenCat = Path.GetFileName(model.ImagePath.FileName);
+                        data.imagenCat = $"/Assets/Images/{model.imagenCat}";
+                        string path = Path.Combine(Server.MapPath("~/Assets/Images/"), Path.GetFileName(model.imagenCat));
+                        model.ImagePath.SaveAs(path);
                         db.categorias.Add(data);
                         db.SaveChanges();
                     }
+                    return Redirect("/");
                 }
-                return Redirect("Categoria/");
+                return View(model);
+
             }
             catch (Exception ex)
             {

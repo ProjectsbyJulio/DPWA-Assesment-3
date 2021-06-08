@@ -13,9 +13,7 @@ namespace DPWA_Assessment.Models.ViewModel
         [StringLength(50)]
         [Display(Name = "Nombre")]
         public string Categoria { get; set; }
-        [Required]
-        [DataType(DataType.Upload)]
-        [Display(Name = "Imagen")]
         public string imagenCat { get; set; }
+        public HttpPostedFileBase ImagePath { get; set; }
     }
 }
