@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DPWA_Assessment.Models;
+using System.IO;
 
 namespace DPWA_Assessment.Controllers
 {
@@ -14,7 +15,7 @@ namespace DPWA_Assessment.Controllers
         public ActionResult Index()
         {
             List<JuegoViewModel> listaJuegos;
-            using(juegoJECSEntities db = new juegoJECSEntities())
+            using (juegoJECSEntities db = new juegoJECSEntities())
             {
                 listaJuegos = db.juegoes.Join(
                         db.categorias,
@@ -32,6 +33,51 @@ namespace DPWA_Assessment.Controllers
                     ).ToList();
             }
             return View(listaJuegos);
+        }
+
+        public ActionResult InsertarJuego()
+        {
+            List<CategoriaViewModel> listaCategorias;
+            using (juegoJECSEntities db = new juegoJECSEntities())
+            {
+                listaCategorias = (from data in db.categorias
+                                   select new CategoriaViewModel
+                                   {
+                                       Id = data.idcategoria,
+                                       Categoria = data.categoria1
+                                   }
+                                   ).ToList();
+            }
+
+            return View(listaCategorias);
+        }
+
+        [HttpPost]
+        public ActionResult InsertarJuego(JuegoViewModel model)
+        {
+            try
+            {
+                using (juegoJECSEntities db = new juegoJECSEntities())
+                {
+                    var data = new juego();
+                    data.nomJuego = model.NombreJuego;
+                    model.Imagen = Path.GetFileName(model.ImagePath.FileName);
+                    data.imagen = $"/Assets/Images/{model.Imagen}";
+                    string path = Path.Combine(Server.MapPath("~/Assets/Images/"), Path.GetFileName(model.Imagen));
+                    model.ImagePath.SaveAs(path);
+                    data.precio = model.Precio;
+                    data.existencias = model.Existencias;
+                    data.idcategoria = model.IdCategoria;
+                    db.juegoes.Add(data);
+                    db.SaveChanges();
+                }
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
