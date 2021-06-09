@@ -13,6 +13,6 @@ namespace DPWA_Assessment.Models.ViewModel
         public int Existencias { get; set; }
         public string Imagen { get; set; }
         public HttpPostedFileBase ImagePath { get; set; }
-        public int IdCategoria { get; set; }
+        public string Categoria { get; set; }
     }
 }

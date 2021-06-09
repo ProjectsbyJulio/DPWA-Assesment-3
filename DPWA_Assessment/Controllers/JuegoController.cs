@@ -16,17 +16,20 @@ namespace DPWA_Assessment.Controllers
             List<JuegoViewModel> listaJuegos;
             using(juegoJECSEntities db = new juegoJECSEntities())
             {
-                listaJuegos = (from data in db.juegoes
-                               select new JuegoViewModel
-                               {
-                                   Id =  data.idjuego,
-                                   NombreJuego = data.nomJuego,
-                                   Existencias = (int)data.existencias,
-                                   Imagen = data.imagen,
-                                   Precio = (double)data.precio,
-                                   IdCategoria = (int)data.idcategoria
-                               }
-                               ).ToList();
+                listaJuegos = db.juegoes.Join(
+                        db.categorias,
+                        juego => juego.idcategoria,
+                        categoria => categoria.idcategoria,
+                        (juego, categoria) => new JuegoViewModel
+                        {
+                            Id = juego.idjuego,
+                            NombreJuego = juego.nomJuego,
+                            Existencias = (int)juego.existencias,
+                            Imagen = juego.imagen,
+                            Precio = (double)juego.precio,
+                            Categoria = categoria.categoria1
+                        }
+                    ).ToList();
             }
             return View(listaJuegos);
         }
