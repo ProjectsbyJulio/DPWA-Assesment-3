@@ -33,7 +33,7 @@ namespace DPWA_Assessment.Controllers
                         }
                     ).ToList();
             }
-            return View(viewModel.Juegos);
+            return View(viewModel);
         }
 
         public ActionResult InsertarJuego()
@@ -49,7 +49,7 @@ namespace DPWA_Assessment.Controllers
                                    ).ToList();
             }
 
-            return View(viewModel.Categorias);
+            return View(viewModel);
         }
 
         [HttpPost]
