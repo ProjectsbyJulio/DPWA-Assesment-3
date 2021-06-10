@@ -154,6 +154,7 @@
     </Compile>
     <Compile Include="Models\ViewModel\CategoriaViewModel.cs" />
     <Compile Include="Models\ViewModel\JuegoViewModel.cs" />
+    <Compile Include="Models\ViewModel\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +255,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Images\" />
+    <Folder Include="Views\JuegoCategoria\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

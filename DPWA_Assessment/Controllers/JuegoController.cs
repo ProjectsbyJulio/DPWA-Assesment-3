@@ -11,13 +11,14 @@ namespace DPWA_Assessment.Controllers
 {
     public class JuegoController : Controller
     {
+        ViewModel viewModel = new ViewModel();
         // GET: Juego
         public ActionResult Index()
         {
-            List<JuegoViewModel> listaJuegos;
+       
             using (juegoJECSEntities db = new juegoJECSEntities())
             {
-                listaJuegos = db.juegoes.Join(
+                viewModel.Juegos = db.juegoes.Join(
                         db.categorias,
                         juego => juego.idcategoria,
                         categoria => categoria.idcategoria,
@@ -32,15 +33,14 @@ namespace DPWA_Assessment.Controllers
                         }
                     ).ToList();
             }
-            return View(listaJuegos);
+            return View(viewModel.Juegos);
         }
 
         public ActionResult InsertarJuego()
         {
-            List<CategoriaViewModel> listaCategorias;
             using (juegoJECSEntities db = new juegoJECSEntities())
             {
-                listaCategorias = (from data in db.categorias
+                viewModel.Categorias = (from data in db.categorias
                                    select new CategoriaViewModel
                                    {
                                        Id = data.idcategoria,
@@ -49,7 +49,7 @@ namespace DPWA_Assessment.Controllers
                                    ).ToList();
             }
 
-            return View(listaCategorias);
+            return View(viewModel.Categorias);
         }
 
         [HttpPost]
