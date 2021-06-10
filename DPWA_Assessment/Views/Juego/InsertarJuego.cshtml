@@ -1,7 +1,46 @@
-﻿
+﻿@model DPWA_Assessment.Models.ViewModel.JuegoViewModel
+@model List<DPWA_Assessment.Models.ViewModel.JuegoViewModel>
 @{
-    ViewBag.Title = "InsertarJuego";
+    ViewBag.Title = "Insertar Juego";
 }
 
-<h2>InsertarJuego</h2>
-
+<div class="d-flex justify-content-center align-items-center vh-100 container-fluid">
+    <div>
+        <h2 class="text-center text-dark mb-5 display-2">@ViewBag.Title</h2>
+        <div class="row">
+            @using (Html.BeginForm("InsertarJuego", "Juego", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="shadow p-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.NombreJuego, "Nombre", new { @class = "form-label" })
+                        @Html.TextBoxFor(d => d.NombreJuego, "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(d => d.Imagen, "Imagen", new { @class = "form-label" })
+                    <input type="file" name="ImagePath" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(d => d.Precio, "Precio", new { @class = "form-label" })
+                    @Html.TextBoxFor(d => d.Precio, "", new { @class = "form-control" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(d => d.Existencias, "Existencias", new { @class = "form-label" })
+                    <input type="number" name="Existencias" class="form-control" min="0" max="50" />
+                </div>
+                <div class="mb-3">
+                    <select class="form-select">
+                        <option selected>Selecciona una Categoría</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value=@item.IdCategoria>@item.Categoria</option>
+                        }
+                    </select>
+                </div>
+                <div class="text-end mb-3">
+                    <input type="submit" value="Guardar" class="btn btn-sm btn-warning" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
