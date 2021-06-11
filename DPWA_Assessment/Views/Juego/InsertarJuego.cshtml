@@ -29,7 +29,8 @@
                         <input type="number" name="NuevoJuego.Existencias" class="form-control" min="0" max="50" />
                     </div>
                     <div class="mb-3">
-                        <select class="form-select">
+                        @Html.LabelFor(d=> d.NuevoJuego.IdCategoria, "Categoria", new { @class = "form-label" }) 
+                        <select class="form-select" name="NuevoJuego.IdCategoria">
                             <option selected>Selecciona una Categoría</option>
                             @foreach (var item in Model.Categorias)
                             {

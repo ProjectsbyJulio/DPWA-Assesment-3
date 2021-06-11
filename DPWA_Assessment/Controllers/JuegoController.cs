@@ -15,10 +15,10 @@ namespace DPWA_Assessment.Controllers
         // GET: Juego
         public ActionResult Index()
         {
-       
+            List<JuegoViewModel> listaJuegos;
             using (juegoJECSEntities db = new juegoJECSEntities())
             {
-                viewModel.Juegos = db.juegoes.Join(
+                listaJuegos = db.juegoes.Join(
                         db.categorias,
                         juego => juego.idcategoria,
                         categoria => categoria.idcategoria,
@@ -33,7 +33,7 @@ namespace DPWA_Assessment.Controllers
                         }
                     ).ToList();
             }
-            return View(viewModel);
+            return View(listaJuegos);
         }
 
         public ActionResult InsertarJuego()
@@ -53,23 +53,27 @@ namespace DPWA_Assessment.Controllers
         }
 
         [HttpPost]
-        public ActionResult InsertarJuego(JuegoViewModel model)
+        public ActionResult InsertarJuego(ViewModel model)
         {
             try
             {
-                using (juegoJECSEntities db = new juegoJECSEntities())
+                if (ModelState.IsValid)
                 {
-                    var data = new juego();
-                    data.nomJuego = model.NombreJuego;
-                    model.Imagen = Path.GetFileName(model.ImagePath.FileName);
-                    data.imagen = $"/Assets/Images/{model.Imagen}";
-                    string path = Path.Combine(Server.MapPath("~/Assets/Images/"), Path.GetFileName(model.Imagen));
-                    model.ImagePath.SaveAs(path);
-                    data.precio = model.Precio;
-                    data.existencias = model.Existencias;
-                    data.idcategoria = model.IdCategoria;
-                    db.juegoes.Add(data);
-                    db.SaveChanges();
+                    using (juegoJECSEntities db = new juegoJECSEntities())
+                    {
+                        var data = new juego();
+                        data.nomJuego = model.NuevoJuego.NombreJuego;
+                        model.NuevoJuego.Imagen = Path.GetFileName(model.NuevoJuego.ImagePath.FileName);
+                        data.imagen = $"/Assets/Images/{model.NuevoJuego.Imagen}";
+                        string path = Path.Combine(Server.MapPath("~/Assets/Images/"), Path.GetFileName(model.NuevoJuego.Imagen));
+                        model.NuevoJuego.ImagePath.SaveAs(path);
+                        data.precio = model.NuevoJuego.Precio;
+                        data.existencias = model.NuevoJuego.Existencias;
+                        data.idcategoria = model.NuevoJuego.IdCategoria;
+                        db.juegoes.Add(data);
+                        db.SaveChanges();
+                    }
+                    return Redirect("/Juego");
                 }
                 return View(model);
             }

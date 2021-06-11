@@ -53,7 +53,7 @@ namespace DPWA_Assessment.Controllers
                         db.categorias.Add(data);
                         db.SaveChanges();
                     }
-                    return Redirect("/");
+                    return Redirect("/Categoria");
                 }
                 return View(model);
 
