@@ -255,7 +255,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Images\" />
-    <Folder Include="Views\JuegoCategoria\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
